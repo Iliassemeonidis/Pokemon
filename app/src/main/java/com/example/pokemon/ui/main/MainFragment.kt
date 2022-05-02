@@ -23,14 +23,15 @@ class MainFragment : Fragment() {
     private lateinit var adapter: MainAdapter
     private val mainViewModel: MainViewModel by viewModel()
 
-    private val onClick : MainAdapter.OnListItemClickListener = object :MainAdapter.OnListItemClickListener{
-        override fun onItemClick(data: PokemonResult) {
-           requireActivity().supportFragmentManager.beginTransaction()
-               .replace(R.id.container, PokemonDetailsFragment.newInstance(data))
-               .addToBackStack(null)
-               .commitAllowingStateLoss()
+    private val onClick: MainAdapter.OnListItemClickListener =
+        object : MainAdapter.OnListItemClickListener {
+            override fun onItemClick(data: PokemonResult) {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, PokemonDetailsFragment.newInstance(data))
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss()
+            }
         }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,8 +54,8 @@ class MainFragment : Fragment() {
         when (state) {
             is AppState.Success -> {
                 val data = state.data as PokemonResultData
-                val pokemonresalt = data.results ?: listOf()
-                initAdapter(pokemonresalt)
+                val pokemonResult = data.results ?: listOf()
+                initAdapter(pokemonResult)
             }
             is AppState.Loading -> {}
 

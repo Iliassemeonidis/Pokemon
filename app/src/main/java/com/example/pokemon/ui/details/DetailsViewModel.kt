@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokemon.model.data.AppState
-import com.example.pokemon.ui.base.BaseViewModel
 import kotlinx.coroutines.*
 
 class DetailsViewModel(private val interactor: DetailsInteractor) : ViewModel() {
@@ -15,10 +14,10 @@ class DetailsViewModel(private val interactor: DetailsInteractor) : ViewModel() 
     private val liveDataToObserver = _mutableLiveData
 
     fun subscribe(): LiveData<AppState> {
-        return  liveDataToObserver
+        return liveDataToObserver
     }
 
-     fun getData(url: String) {
+    fun getData(url: String) {
         _mutableLiveData.value = AppState.Loading(0)
         viewModelScope.launch(Dispatchers.Main
                 + SupervisorJob()
@@ -26,8 +25,8 @@ class DetailsViewModel(private val interactor: DetailsInteractor) : ViewModel() 
         ) { startInteractor(url) }
     }
 
-     private fun handlerError(error: Throwable) {
-       _mutableLiveData.value = AppState.Error(error)
+    private fun handlerError(error: Throwable) {
+        _mutableLiveData.value = AppState.Error(error)
     }
 
     private suspend fun startInteractor(url: String) {

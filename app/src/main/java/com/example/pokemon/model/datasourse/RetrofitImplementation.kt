@@ -1,7 +1,7 @@
 package com.example.pokemon.model.datasourse
 
-import com.example.pokemon.model.data.result.PokemonResultData
 import com.example.pokemon.model.data.details.DetailsPokemonData
+import com.example.pokemon.model.data.result.PokemonResultData
 import com.example.pokemon.model.datasourse.details.DataSoursDetails
 import com.example.pokemon.model.datasourse.main.DataSours
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
-class RetrofitImplementation : DataSours<PokemonResultData>, DataSoursDetails<DetailsPokemonData>  {
+class RetrofitImplementation : DataSours<PokemonResultData>, DataSoursDetails<DetailsPokemonData> {
 
     override suspend fun getData(): PokemonResultData {
         return getService().getDataPokemonAsync().await()
@@ -52,6 +52,5 @@ class RetrofitImplementation : DataSours<PokemonResultData>, DataSoursDetails<De
     companion object {
         private const val BASE_URL = "https://pokeapi.co/api/v2/"
     }
-
 
 }

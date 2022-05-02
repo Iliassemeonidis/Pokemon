@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.example.pokemon.R
 import com.example.pokemon.databinding.FragmentPokemonDetailsBinding
 import com.example.pokemon.model.data.AppState
 import com.example.pokemon.model.data.details.DetailsPokemonData
@@ -22,7 +21,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class PokemonDetailsFragment : Fragment() {
-
 
     private var fragmentBinding: FragmentPokemonDetailsBinding? = null
     private val binding get() = fragmentBinding!!
@@ -39,11 +37,18 @@ class PokemonDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.subscribe().observe(viewLifecycleOwner) { renderData(it) }
-        val data = arguments?.getSerializable(ARG_POKEMON) as PokemonResult
-        val number = data.url?.takeLastWhile { !it.isLetter() }?.replace('/', ' ')?.trim()
-        viewModel.getData(number.toString())
+
+        setArgumentInModel()
     }
 
+    private fun setArgumentInModel() {
+        viewModel.getData(getArgument().toString())
+    }
+
+    private fun getArgument(): String? {
+        val data = arguments?.getSerializable(ARG_POKEMON) as PokemonResult
+        return data.url?.takeLastWhile { !it.isLetter() }?.replace('/', ' ')?.trim()
+    }
 
     private fun renderData(state: AppState) {
         when (state) {
@@ -62,18 +67,19 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun loadImage(pokemonImage: String) {
-        val requestBuilder: RequestBuilder<PictureDrawable> = GlideToVectorYou
-            .init()
-            .with(requireContext())
-            .requestBuilder
+        val requestBuilder: RequestBuilder<PictureDrawable> = initRequestBuilder()
 
         requestBuilder.load(Uri.parse(pokemonImage))
             .transition(DrawableTransitionOptions.withCrossFade())
-            .apply(
-                RequestOptions()
-                    .centerCrop()
-            )
+            .apply(RequestOptions().centerCrop())
             .into(fragmentBinding!!.imagePokemon)
+    }
+
+    private fun initRequestBuilder(): RequestBuilder<PictureDrawable> {
+        return GlideToVectorYou
+            .init()
+            .with(requireContext())
+            .requestBuilder
     }
 
     companion object {

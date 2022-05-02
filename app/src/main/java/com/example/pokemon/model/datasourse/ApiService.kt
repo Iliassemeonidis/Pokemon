@@ -11,9 +11,6 @@ interface ApiService {
     @GET("pokemon?limit=100&offset=0")
     fun getDataPokemonAsync(): Deferred<PokemonResultData>
 
-//    @GET("pokemon/{pokemonNumber}/")
-//    fun getPokemonDetailsAsync(@Path("pokemonNumber") pokemonNumber:Int): Deferred<List<DetailsPokemon>>
-
     @GET("pokemon/{url}/")
-    fun getPokemonDetailsAsync(@Path("url") pokemonNumber:String): Deferred<DetailsPokemonData>
+    fun getPokemonDetailsAsync(@Path("url") pokemonNumber: String): Deferred<DetailsPokemonData>
 }

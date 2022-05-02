@@ -19,15 +19,17 @@ import org.koin.dsl.module
 val application = module {
 
     single<Repository<PokemonResultData>>(named(NAME_REMOTE)) {
-        RepositoryImplementation (
+        RepositoryImplementation(
             RetrofitImplementation()
         )
     }
+
     single<RepositoryDetails<DetailsPokemonData>>(named(NAME_REMOTE)) {
-        RepositoryDetailsImplementation (
+        RepositoryDetailsImplementation(
             RetrofitImplementation()
         )
     }
+
     single<Repository<PokemonResultData>>(named(NAME_LOCAL)) {
         RepositoryImplementation(
             RoomDataBaseImplementation()
@@ -35,7 +37,7 @@ val application = module {
     }
 
     single<RepositoryDetails<DetailsPokemonData>>(named(NAME_LOCAL)) {
-        RepositoryDetailsImplementation (
+        RepositoryDetailsImplementation(
             RoomDataBaseImplementation()
         )
     }
@@ -49,6 +51,7 @@ val mainScreen = module {
             localRepository = get(named(NAME_LOCAL))
         )
     }
+
     factory {
         DetailsInteractor(
             remoteRepository = get(named(NAME_REMOTE)),

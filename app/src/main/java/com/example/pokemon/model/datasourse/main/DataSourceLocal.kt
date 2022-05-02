@@ -6,5 +6,5 @@ import com.example.pokemon.model.datasourse.RoomDataBaseImplementation
 class DataSourceLocal(private val remote: RoomDataBaseImplementation = RoomDataBaseImplementation()) :
     DataSours<PokemonResultData> {
 
-    override suspend fun getData() : PokemonResultData = remote.getData()
+    override suspend fun getData(): PokemonResultData = remote.getData()
 }

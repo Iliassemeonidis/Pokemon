@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import com.example.pokemon.model.data.AppState
 import com.example.pokemon.model.data.result.PokemonResultData
 import com.example.pokemon.ui.base.BaseViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppState>() {
 

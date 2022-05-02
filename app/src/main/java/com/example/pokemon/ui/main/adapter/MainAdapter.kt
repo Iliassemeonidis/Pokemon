@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemon.databinding.PokeItemBinding
 import com.example.pokemon.model.data.result.PokemonResult
 
-class MainAdapter( private var onListItemClickListener: OnListItemClickListener) : RecyclerView.Adapter<MainAdapter.ViewHolderItemPokemon>() {
+class MainAdapter(private var onListItemClickListener: OnListItemClickListener) :
+    RecyclerView.Adapter<MainAdapter.ViewHolderItemPokemon>() {
 
-    private var pokemonList : List<PokemonResult> = listOf()
+    private var pokemonList: List<PokemonResult> = listOf()
 
     @SuppressLint("NotifyDataSetChanged")
     fun setNewList(list: List<PokemonResult>) {
@@ -17,8 +18,7 @@ class MainAdapter( private var onListItemClickListener: OnListItemClickListener)
         notifyDataSetChanged()
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolderItemPokemon (
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolderItemPokemon(
         PokeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
@@ -28,11 +28,12 @@ class MainAdapter( private var onListItemClickListener: OnListItemClickListener)
 
     override fun getItemCount() = pokemonList.size
 
-    inner class ViewHolderItemPokemon(private val vb: PokeItemBinding) : RecyclerView.ViewHolder(vb.root) {
+    inner class ViewHolderItemPokemon(private val vb: PokeItemBinding) :
+        RecyclerView.ViewHolder(vb.root) {
 
         fun bind(pokemonName: PokemonResult) {
             vb.pokemonName.text = pokemonName.name
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 onListItemClickListener.onItemClick(pokemonName)
             }
         }

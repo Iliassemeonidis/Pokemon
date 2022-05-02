@@ -2,12 +2,15 @@ package com.example.pokemon.ui.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.pokemon.model.data.AppState
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 
 abstract class BaseViewModel<T : AppState>(
-    protected open val _mutableLiveData: MutableLiveData<T> = MutableLiveData()) :
+    protected open val _mutableLiveData: MutableLiveData<T> = MutableLiveData()
+) :
     ViewModel() {
 
     protected val viewModelCoroutineScope = CoroutineScope(

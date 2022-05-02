@@ -7,6 +7,6 @@ class RepositoryDetailsImplementation(private val pokemon: DataSoursDetails<Deta
     RepositoryDetails<DetailsPokemonData> {
 
     override suspend fun getImagePokemonData(url: String): DetailsPokemonData {
-      return pokemon.getPokemonImageData(url)
+        return pokemon.getPokemonImageData(url)
     }
 }
