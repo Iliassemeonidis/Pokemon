@@ -11,8 +11,8 @@ import com.example.pokemon.databinding.MainFragmentBinding
 import com.example.pokemon.model.data.AppState
 import com.example.pokemon.model.data.result.PokemonResult
 import com.example.pokemon.model.data.result.PokemonResultData
+import com.example.pokemon.model.utils.isNetworkAvailable
 import com.example.pokemon.ui.details.PokemonDetailsFragment
-import com.example.pokemon.ui.main.adapter.MainAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -43,11 +43,23 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initAdapter()
+        subscribeOnViewModel()
+    }
 
-        mainViewModel.subscribe().observe(viewLifecycleOwner) {
-            renderData(it)
-        }
-        mainViewModel.getData()
+    override fun onDestroy() {
+        super.onDestroy()
+        mainFragmentBinding = null
+    }
+
+    private fun subscribeOnViewModel() {
+        mainViewModel.subscribe().observe(viewLifecycleOwner) { renderData(it) }
+        mainViewModel.getData(isNetworkAvailable(requireContext()))
+    }
+
+    private fun initAdapter() {
+        adapter = MainAdapter(onClick)
+        binding.pokemonList.adapter = adapter
     }
 
     private fun renderData(state: AppState) {
@@ -55,7 +67,7 @@ class MainFragment : Fragment() {
             is AppState.Success -> {
                 val data = state.data as PokemonResultData
                 val pokemonResult = data.results ?: listOf()
-                initAdapter(pokemonResult)
+                setItemsOnAdapter(pokemonResult)
             }
             is AppState.Loading -> {}
 
@@ -66,9 +78,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun initAdapter(result: List<PokemonResult>) {
-        adapter = MainAdapter(onClick)
+    private fun setItemsOnAdapter(result: List<PokemonResult>) {
         adapter.setNewList(result)
-        binding.pokemonList.adapter = adapter
     }
 }

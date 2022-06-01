@@ -19,6 +19,6 @@ abstract class BaseViewModel<T : AppState>(
                 + CoroutineExceptionHandler { _, throwable -> handlerError(throwable) }
     )
 
-    abstract fun getData()
+    abstract fun getData(isOnline: Boolean)
     abstract fun handlerError(error: Throwable)
 }

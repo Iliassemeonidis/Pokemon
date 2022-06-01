@@ -16,9 +16,9 @@ class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppS
         return liveData
     }
 
-    override fun getData() {
+    override fun getData(isOnline: Boolean) {
         _mutableLiveData.value = AppState.Loading(0)
-        viewModelCoroutineScope.launch { startInteractor() }
+        viewModelCoroutineScope.launch { startInteractor(isOnline) }
     }
 
     override fun handlerError(error: Throwable) {
@@ -30,9 +30,9 @@ class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppS
         super.onCleared()
     }
 
-    private suspend fun startInteractor() {
+    private suspend fun startInteractor(isOnline:Boolean) {
         withContext(Dispatchers.IO) {
-            _mutableLiveData.postValue(interactor.getData())
+            _mutableLiveData.postValue(interactor.getData(isOnline))
         }
     }
 }

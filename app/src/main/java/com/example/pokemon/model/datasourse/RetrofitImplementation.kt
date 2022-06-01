@@ -2,7 +2,6 @@ package com.example.pokemon.model.datasourse
 
 import com.example.pokemon.model.data.details.DetailsPokemonData
 import com.example.pokemon.model.data.result.PokemonResultData
-import com.example.pokemon.model.datasourse.details.DataSoursDetails
 import com.example.pokemon.model.datasourse.main.DataSours
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
@@ -12,14 +11,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
-class RetrofitImplementation : DataSours<PokemonResultData>, DataSoursDetails<DetailsPokemonData> {
+class RetrofitImplementation : DataSours<PokemonResultData, DetailsPokemonData> {
+
+    private val service = getService()
 
     override suspend fun getData(): PokemonResultData {
-        return getService().getDataPokemonAsync().await()
+        return service.getDataPokemonAsync().await()
     }
 
     override suspend fun getPokemonImageData(url: String): DetailsPokemonData {
-        return getService().getPokemonDetailsAsync(url).await()
+        return service.getPokemonDetailsAsync(url).await()
     }
 
     private fun getService(): ApiService {

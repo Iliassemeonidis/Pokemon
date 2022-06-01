@@ -3,15 +3,20 @@ package com.example.pokemon.ui.main
 import com.example.pokemon.interactor.Interactor
 import com.example.pokemon.model.data.AppState
 import com.example.pokemon.model.data.result.PokemonResultData
-import com.example.pokemon.model.repository.main.Repository
+import com.example.pokemon.model.repository.main.RepositoryMain
 
 class MainInteractor(
-    private val remoteRepository: Repository<PokemonResultData>,
-    private val localRepository: Repository<PokemonResultData>
+    private val repository: RepositoryMain<PokemonResultData>
 ) : Interactor<AppState> {
 
-    // TODO написать реалтизацию и для localRepository
-    override suspend fun getData(): AppState {
-        return AppState.Success(remoteRepository.getData())
+    override suspend fun getData(isOnline: Boolean): AppState {
+        val appState: AppState
+        if (isOnline) {
+            appState = AppState.Success(repository.getData())
+            repository.saveToDB(appState)
+        } else {
+            appState = AppState.Success(repository.getData())
+        }
+        return appState
     }
 }

@@ -1,4 +1,4 @@
-package com.example.pokemon.ui.main.adapter
+package com.example.pokemon.ui.main
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
