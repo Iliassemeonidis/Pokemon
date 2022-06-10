@@ -13,7 +13,7 @@ class DetailsInteractor(
         val appState: AppState
         if (isOnline) {
             appState = AppState.Success(remoteRepository.getImagePokemonData(isOnline,url))
-            remoteRepository.saveToDB(appState)
+            remoteRepository.saveImageToDB(appState)
         } else {
             appState = AppState.Success(remoteRepository.getImagePokemonData(isOnline,url))
         }

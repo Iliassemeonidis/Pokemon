@@ -4,5 +4,5 @@ import com.example.pokemon.model.data.AppState
 
 interface RepositoryDetails<T> {
     suspend fun getImagePokemonData(isOnline: Boolean,url: String): T
-    suspend fun saveToDB(appState: AppState)
+    suspend fun saveImageToDB(appState: AppState)
 }

@@ -25,7 +25,11 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val application = module {
-    single { Room.databaseBuilder(get(), HistoryDataBase::class.java, "HistoryDB").build() }
+    single {
+        Room.databaseBuilder(get(), HistoryDataBase::class.java, "HistoryDB")
+            .fallbackToDestructiveMigration()
+            .build()
+    }
     single { get<HistoryDataBase>().historyDao() }
 }
 

@@ -14,8 +14,7 @@ class RepositoryDetailsImplementation(
     override suspend fun getImagePokemonData(isOnline: Boolean, url: String): DetailsPokemonData {
         return remote.getPokemonImageData(isOnline, url)
     }
-
-    override suspend fun saveToDB(appState: AppState) {
-        local.saveToDB(appState)
+    override suspend fun saveImageToDB(appState: AppState) {
+        local.saveImageToDB(appState)
     }
 }

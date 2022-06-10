@@ -13,7 +13,7 @@ class DataSourceDetailsLocalImpl(
         return remote.getPokemonImageData(url)
     }
 
-    override suspend fun saveToDB(appState: AppState) {
-        remote.saveToDB(appState)
+    override suspend fun saveImageToDB(appState: AppState) {
+        remote.saveImageToDB(appState)
     }
 }
