@@ -17,21 +17,21 @@ class DetailsViewModel(private val interactor: DetailsInteractor) : ViewModel() 
         return liveDataToObserver
     }
 
-    fun getData(url: String) {
+    fun getData(isOnline: Boolean, url: String) {
         _mutableLiveData.value = AppState.Loading(0)
         viewModelScope.launch(Dispatchers.Main
                 + SupervisorJob()
                 + CoroutineExceptionHandler { _, throwable -> handlerError(throwable) }
-        ) { startInteractor(url) }
+        ) { startInteractor(isOnline, url) }
     }
 
     private fun handlerError(error: Throwable) {
         _mutableLiveData.value = AppState.Error(error)
     }
 
-    private suspend fun startInteractor(url: String) {
+    private suspend fun startInteractor(isOnline: Boolean, url: String) {
         withContext(Dispatchers.IO) {
-            _mutableLiveData.postValue(interactor.getImagePokemon(url))
+            _mutableLiveData.postValue(interactor.getImagePokemon(isOnline, url))
         }
     }
 }

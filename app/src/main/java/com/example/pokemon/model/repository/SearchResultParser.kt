@@ -5,7 +5,7 @@ import com.example.pokemon.model.data.result.PokemonResult
 import com.example.pokemon.model.data.result.PokemonResultData
 import com.example.pokemon.model.repository.room.HistoryEntity
 
-fun mapHistoryEntityToSearchResult(list: List<HistoryEntity>): AppState {
+fun mapHistoryEntityToSearchResult(list: List<HistoryEntity>): PokemonResultData {
 
     val pokemonResultList = ArrayList<PokemonResult>()
     if (!list.isNullOrEmpty()) {
@@ -13,7 +13,7 @@ fun mapHistoryEntityToSearchResult(list: List<HistoryEntity>): AppState {
             pokemonResultList.add(PokemonResult(entity.name,entity.url))
         }
     }
-    return AppState.Success(PokemonResultData(pokemonResultList))
+    return PokemonResultData(pokemonResultList)
 }
 
 

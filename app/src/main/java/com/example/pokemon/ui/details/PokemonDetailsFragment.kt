@@ -16,6 +16,7 @@ import com.example.pokemon.databinding.FragmentPokemonDetailsBinding
 import com.example.pokemon.model.data.AppState
 import com.example.pokemon.model.data.details.DetailsPokemonData
 import com.example.pokemon.model.data.result.PokemonResult
+import com.example.pokemon.model.utils.isNetworkAvailable
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -42,7 +43,7 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun setArgumentInModel() {
-        viewModel.getData(getArgument().toString())
+        viewModel.getData(isNetworkAvailable(requireContext()), getArgument().toString())
     }
 
     private fun getArgument(): String? {
