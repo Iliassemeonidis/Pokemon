@@ -15,3 +15,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Pokemon"
 include ':app'
+include ':core'
+include ':utils'
+include ':detailsScreen'
+include ':model'
+include ':repository'
